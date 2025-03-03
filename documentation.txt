@@ -1,0 +1,189 @@
+Main Class
+Purpose
+
+
+The Main class serves as the entry point of the application, responsible for initializing the database connection and managing user interactions through a menu-driven interface. It facilitates various project management operations, including adding, updating, deleting, and finalizing projects.
+
+
+Components
+
+
+Database Connection Initialization
+Initializes a Connection object to manage the database connection. This object is initially set to null.
+
+
+Database Connection Establishment
+Establishes a connection to the MySQL database using a specified JDBC URL, username, and password. This connection enables the application to perform SQL operations on the PoisePMS database.
+
+
+ProjectOperations Instance Creation
+Creates an instance of the ProjectOperations class, passing the established database connection. This instance provides methods for executing various project-related database operations.
+
+
+Scanner for User Input
+Initializes a Scanner object for reading user input from the console. This setup allows for interactive user engagement and input validation.
+
+
+Menu Loop for User Interaction
+Implements a loop that continuously displays menu options and processes user choices until the user decides to exit. A control variable manages the loop's execution.
+
+
+Menu Display
+Displays the available options to the user, prompting them to select an action related to project management.
+
+
+User Input Handling
+Captures user input for their menu choice and validates it to ensure it corresponds to the available options. Based on the choice, it calls the relevant methods in the ProjectOperations class.
+
+
+Error Handling
+Implements error handling for database connection issues, ensuring that any SQL exceptions are caught and reported to the user.
+
+
+Database Connection Closure
+Ensures that the database connection is closed properly after the program execution, even if an error occurs. This is crucial for resource management and preventing connection leaks.
+
+
+
+
+
+
+
+
+
+
+
+
+ProjectOperations Class
+
+
+
+
+1. ProjectOperations(Connection connection)
+Description: Initializes the ProjectOperations class with a database connection, allowing other methods to interact with the database.
+
+
+
+
+2. executeUpdate(PreparedStatement preparedStatement)
+Description: Executes an update operation (INSERT, UPDATE, DELETE) using a provided PreparedStatement. It captures the number of affected rows and handles SQL exceptions.
+
+
+
+
+3. readPeopleAndProjects()
+Description: Reads and displays details of all projects along with associated customers, architects, and engineers. Executes a complex SQL query to join multiple tables and formats the results for printing.
+
+
+
+
+4. handleInsert(...)
+Description: Handles the insertion of a new project and its associated entities (customer, architect, engineer). It inserts records into the respective tables and logs messages upon successful addition or any errors encountered.
+
+
+
+
+5. handleUpdate(...)
+Description: Updates an existing project along with its associated customer, architect, and engineer. It executes SQL UPDATE statements for each entity, logging updates or errors as needed.
+
+
+
+
+6. deleteProject(int projectId)
+Description: Deletes a project identified by the given Project ID from the database, along with its associated records in the Engineer, Customer, and Architect tables. It executes deletion queries in a structured manner.
+
+
+
+
+7. deleteExistingProject(int projectId)
+Description: This method combines the actions of displaying current projects and then deleting the specified project by calling deleteProject(int projectId). It shows updated project listings before proceeding with the deletion.
+
+
+
+
+8. getValidInt(Scanner scanner)
+Description: Prompts the user to enter a valid integer and returns the validated input. It handles exceptions until a valid integer is provided.
+
+
+
+
+9. getValidDouble(Scanner scanner)
+Description: Prompts the user for a valid double input and continues until a valid double is entered, handling any exceptions during input.
+
+
+
+
+10. getValidDate(Scanner scanner)
+Description: Prompts the user to enter a date in the format YYYY-MM-DD, validating the input to ensure it is correctly formatted before returning it.
+
+
+
+
+11. captureInfoAndAdd(Scanner scanner)
+Description: Captures user input to add a new project to the database. It displays current projects, prompts the user for various details (Project ID, Building Type, Customer information, Engineer information, Architect information, financial details), and then calls the handleInsert method to save the new project.
+
+
+
+
+12. fetchProjectDetails(int projectId)
+Description: Retrieves detailed information about a specific project identified by its Project ID. It executes a SQL query that joins the Project, Customer, Architect, and Engineer tables to gather all relevant details. If the project is found, it populates a map with the project's information and returns it; if not found, it returns null.
+
+
+
+
+13. captureAndUpdate(Scanner scanner)
+Description: Allows the user to update an existing project's details. It displays current projects and prompts for a Project ID. Upon confirming the project's existence, it retrieves current details and prompts for new values for each field, allowing the user to skip any field. After gathering inputs, it calls handleUpdate to apply the changes.
+
+
+
+
+14. captureAndDelete(Scanner scanner)
+Description: Enables users to delete a project. It displays current projects and prompts the user for the Project ID to delete. It checks the database for the Project ID's existence. If found, it calls deleteExistingProject to proceed with the deletion; otherwise, it notifies the user that the project does not exist.
+
+
+
+
+15. finaliseProject(Scanner scanner)
+Description: Used to finalize a project that has been completed. It prompts the user for the Project ID, verifies its existence, and then asks for the completion date. It updates the project status in the database to indicate that it has been finalized.
+
+
+
+
+16. incompleteProjects()
+Description: Retrieves and displays all projects marked as incomplete (Finalized = 0). It executes a SQL query to select these projects and prints their details, including Project ID, Project Name, Building Type, Physical Address, ERF Number, Total Fee, Total Paid, Deadline, Finalized status, and Completion Date.
+
+
+
+
+17. pastDueDate(Scanner scanner)
+Description: Finds projects that are past their due dates. It prompts the user to enter the current date and executes a SQL query to identify projects with completion dates earlier than the entered date, printing the names and completion dates of any overdue projects.
+
+
+
+
+18. findByNumberOrName(Scanner scanner)
+Description: Allows users to search for projects by Project ID or Project Name. It prompts the user for either a Project ID (optional) or a Project Name. A SQL query is executed to find matching projects, and it prints their details if found; otherwise, it notifies the user that no projects match the criteria.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Architect Engineer Customer Project Classes
+
+
+Stores attributes
+
+
+Getter and setter methods for attributes
+
+
+Project has method to establish connection

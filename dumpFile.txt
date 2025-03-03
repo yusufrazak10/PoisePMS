@@ -1,0 +1,4 @@
+mysqldump -u otheruser -p PoisePMS > dump_file.sql
+
+
+cat dump_file.sql
